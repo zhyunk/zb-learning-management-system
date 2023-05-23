@@ -1,0 +1,9 @@
+
+- Mariadb 10.6
+ip: 127.0.0.1(192.168.0.50)
+port: 43306
+db instance: minicampus
+id: minicampus_user
+pwd: a1234
+
+
