@@ -58,4 +58,9 @@ public interface MemberService extends UserDetailsService {
      * 회원을 탈퇴시켜 주는 로직
      */
     ServiceResult withdraw(String userId, String password);
+
+    /**
+     * 로그인 히스토리 저장
+     */
+    void saveLoginHistory(String userId, String ip, String userAgent);
 }

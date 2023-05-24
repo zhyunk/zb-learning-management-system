@@ -10,6 +10,9 @@ import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.service.MemberService;
 import com.zerobase.fastlms.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +29,12 @@ public class MemberController {
     
     private final MemberService memberService;
     private final TakeCourseService takeCourseService;
-    
+
     @RequestMapping("/member/login")
     public String login() {
-        
+        if (isAuthenticated( ))
+            return "index";
+
         return "member/login";
     }
     
@@ -69,8 +74,8 @@ public class MemberController {
     // 프로토콜://도메인(IP)/news/list.do?쿼리스트링(파라미터)
     // https://www.naver.com/cafe/detail.do?id=1111
     // https://www.naver.com/cafe/detail.do?id=2222
-    
-    
+
+
     @GetMapping("/member/email-auth")
     public String emailAuth(Model model, HttpServletRequest request) {
         
@@ -171,5 +176,17 @@ public class MemberController {
         }
         
         return "redirect:/member/logout";
+    }
+
+    /**
+     * 로그인 인증 확인
+     */
+    private boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+            return false;
+
+        return authentication.isAuthenticated();
     }
 }
