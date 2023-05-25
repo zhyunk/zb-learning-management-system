@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zerobase.fastlms.admin.mapper.MemberMapper">
 
+    <resultMap type="com.zerobase.fastlms.admin.dto.MemberDto" id="MemberDto">
+        <result property="loginDt" column="login_dt"/>
+    </resultMap>
+
     <sql id="selectListWhere">
         <if test="searchType != null and searchValue != null">
             <choose>
@@ -38,9 +42,19 @@
             <include refid="selectListWhere"/>
     </select>
 
-    <select id="selectList" resultType="com.zerobase.fastlms.admin.dto.MemberDto">
+    <select id="selectList" resultMap="MemberDto">
         select *
-        from member
+        from (
+            select  m.user_id, m.user_name, m.email_auth_yn, m.reg_dt, m.admin_yn, lh.login_dt
+            from member m
+            inner join (
+                select
+                user_id,
+                max(login_dt) as login_dt
+                from login_history
+                group by user_id
+            ) lh on m.user_id = lh.user_id
+        ) tb
         where 1 = 1
             <include refid="selectListWhere"/>
 

@@ -21,7 +21,8 @@ public class MemberDto {
     String password;
     LocalDateTime regDt;
     LocalDateTime udtDt;
-    
+    LocalDateTime loginDt;
+
     boolean emailAuthYn;
     LocalDateTime emailAuthDt;
     String emailAuthKey;
@@ -50,6 +51,7 @@ public class MemberDto {
                 //.password(member.getPassword())
                 .regDt(member.getRegDt())
                 .udtDt(member.getUdtDt())
+                .loginDt(member.getLoginDt())
                 .emailAuthYn(member.isEmailAuthYn())
                 .emailAuthDt(member.getEmailAuthDt())
                 .emailAuthKey(member.getEmailAuthKey())
@@ -64,8 +66,8 @@ public class MemberDto {
                 
                 .build();
     }
-    
-    
+
+
     public String getRegDtText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return regDt != null ? regDt.format(formatter) : "";
@@ -76,5 +78,10 @@ public class MemberDto {
         return udtDt != null ? udtDt.format(formatter) : "";
         
     }
-    
+
+    public String getLoginDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return loginDt != null ? loginDt.format(formatter) : "";
+    }
+
 }
