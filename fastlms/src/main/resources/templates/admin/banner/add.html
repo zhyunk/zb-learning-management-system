@@ -57,7 +57,7 @@
                     배너명
                 </th>
                 <td>
-                    <input th:value="${detail.subject}" type="text" name="subject" required placeholder="배너명 입력" />
+                    <input th:value="${dto}" type="text" name="subject" required placeholder="배너명 입력" />
                 </td>
             </tr>
 
@@ -73,7 +73,7 @@
                     링크 주소
                 </th>
                 <td>
-                    <input th:value="${detail.keyword}" type="text" name="link" required placeholder="링크 주소 입력" />
+                    <input th:value="${dto}" type="text" name="link" required placeholder="링크 주소 입력" />
                 </td>
             </tr>
 
@@ -95,7 +95,7 @@
                     정렬 순서
                 </th>
                 <td>
-                    <input th:value="${detail.price}" type="text" name="price" required placeholder="정렬 순서 입력" />
+                    <input th:value="${dto}" type="text" name="price" required placeholder="정렬 순서 입력" />
                 </td>
             </tr>
             <tr>
@@ -104,7 +104,7 @@
                 </th>
                 <td>
                     <label>
-                        <input th:value="${detail.salePrice}" type="checkbox" name="salePrice" required  />
+                        <input th:value="${dto}" type="checkbox" name="salePrice" required  />
                     </label>
                 </td>
             </tr>
@@ -113,8 +113,8 @@
         </table>
 
         <div class="buttons">
-            <button th:if="${editMode}" type="submit"> 배너 수정 하기 </button>
-            <button th:if="${!editMode}" type="submit"> 배너 등록 하기 </button>
+            <button th:if="${true}" type="submit"> 배너 수정 하기 </button>
+            <button th:if="${!true}" type="submit"> 배너 등록 하기 </button>
             <a href="/admin/banner/list.do"> 목록 이동 </a>
         </div>
 
