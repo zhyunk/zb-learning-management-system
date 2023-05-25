@@ -101,6 +101,7 @@
 
         </div>
 
+        <br/>
         <table>
             <tr>
                 <td>NO</td>
@@ -113,6 +114,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
+            </tr>
+            <tr th:each="x : ${list}">
+                <td th:text="${x.seq}">1</td>
+                <td th:text="${x.loginDt}">2023.05.26 01:43</td>
+                <td th:text="${x.ip}">홍길동</td>
+                <td th:text="${x.userAgent}">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
+                    (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36</td>
             </tr>
         </table>
     </div>

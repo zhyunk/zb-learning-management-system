@@ -1,6 +1,8 @@
 package com.zerobase.fastlms.member.service.impl;
 
+import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
+import com.zerobase.fastlms.admin.mapper.LoginHistoryMapper;
 import com.zerobase.fastlms.admin.mapper.MemberMapper;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
@@ -41,9 +43,10 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final HistoryRepository historyRepository;
     private final MailComponents mailComponents;
-    
+
     private final MemberMapper memberMapper;
-    
+    private final LoginHistoryMapper loginHistoryMapper;
+
     /**
      * 회원 가입
      */
@@ -317,6 +320,23 @@ public class MemberServiceImpl implements MemberService {
                         .loginDt(LocalDateTime.now())
                         .build()
         );
+    }
+
+    @Override
+    public List<LoginHistoryDto> listLoginHistory(String userId) {
+
+        long totalCount = loginHistoryMapper.selectListCount(userId);
+
+        List<LoginHistoryDto> list = loginHistoryMapper.selectList(userId);
+        if (!CollectionUtils.isEmpty(list)) {
+            int i = 0;
+            for(LoginHistoryDto x : list) {
+                x.setTotalCount(totalCount);
+                x.setSeq(++i);
+            }
+        }
+
+        return list;
     }
 }
 

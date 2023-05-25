@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zerobase.fastlms.admin.mapper.LoginHistoryMapper">
+
+    <select id="selectListCount" resultType="long">
+        select count(*)
+        from login_history
+        where 1 = 1
+          and user_id = #{userId}
+    </select>
+
+    <select id="selectList" resultType="com.zerobase.fastlms.admin.dto.LoginHistoryDto">
+        select user_id, login_dt, ip, user_agent
+        from login_history
+        where 1 = 1
+            and user_id = #{userId}
+    </select>
+
+</mapper>
