@@ -26,8 +26,12 @@ public interface BannerService {
      * 배너 삭제
      */
     boolean del(long id);
-    
-    
+
+    /**
+     * 배너 상세 정보
+     */
+    Banner findById(long id);
+
     /**
      * 프론트 배너 정보
      */

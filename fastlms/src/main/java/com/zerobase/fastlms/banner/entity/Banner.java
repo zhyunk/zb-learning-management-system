@@ -2,6 +2,7 @@ package com.zerobase.fastlms.banner.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @Entity
+@DynamicUpdate
 public class Banner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

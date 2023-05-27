@@ -14,10 +14,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.SocketUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -67,12 +69,20 @@ public class BannerServiceImpl implements BannerService {
     
     @Override
     public boolean update(BannerInput parameter) {
-        
-        Optional<Banner> optionalCategory = bannerRepository.findById(parameter.getId());
-        if (optionalCategory.isPresent()) {
-            Banner banner = optionalCategory.get();
+        System.out.println("================================= " + parameter.toString());
+        Optional<Banner> optionalBanner = bannerRepository.findById(parameter.getId());
+        if (optionalBanner.isPresent()) {
+            Banner banner = optionalBanner.get();
+            banner.setId(parameter.getId());
+            banner.setAltTitle(parameter.getAltTitle());
+            banner.setTarget(parameter.getTarget());
+            banner.setUrl(parameter.getUrl());
             banner.setSortValue(parameter.getSortValue());
             banner.setUsingYn(parameter.isUsingYn());
+
+            if (parameter.getImgPath() != null)
+                banner.setImgPath(parameter.getImgPath());
+
             bannerRepository.save(banner);
         }
         
@@ -86,7 +96,13 @@ public class BannerServiceImpl implements BannerService {
         
         return true;
     }
-    
+
+    @Override
+    public Banner findById(long id) {
+
+        return bannerRepository.findById(id).get();
+    }
+
     @Override
     public List<BannerDto> frontList(BannerDto parameter) {
 

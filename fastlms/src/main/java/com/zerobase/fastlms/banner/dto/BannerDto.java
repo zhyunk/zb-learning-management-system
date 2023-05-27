@@ -30,7 +30,7 @@ public class BannerDto {
     //ADD COLUMNS
     long totalCount;
     long seq;
-    
+    /*
     
     public static List<BannerDto> of (List<Banner> banners) {
         if (banners != null) {
@@ -42,7 +42,7 @@ public class BannerDto {
         }
         
         return null;
-    }
+    }*/
     
     public static BannerDto of(Banner banner) {
         return BannerDto.builder()

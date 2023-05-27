@@ -57,7 +57,7 @@
                     배너명
                 </th>
                 <td>
-                    <input th:value="${dto}" type="text" name="altTitle" required placeholder="배너명 입력" />
+                    <input th:value="${banner.altTitle}" type="text" name="altTitle" required placeholder="배너명 입력" />
                 </td>
             </tr>
 
@@ -73,7 +73,7 @@
                     링크 주소
                 </th>
                 <td>
-                    <input th:value="${dto}" type="text" name="url" required placeholder="링크 주소 입력" />
+                    <input th:value="${banner.url}" type="text" name="url" required placeholder="링크 주소 입력" />
                 </td>
             </tr>
 
@@ -82,10 +82,10 @@
                     오픈 방법
                 </th>
                 <td>
-                    <select th:name="target">
+                    <select th:name="target" th:value="${banner.target}">
                         <option value="선택">오픈 방법 선택</option>
-                        <option th:value="'_BLANK'" th:text="'새 창으로 이동'"></option>
-                        <option th:value="'_SELF'" th:text="'현재 창으로 이동'"></option>
+                        <option th:value="'_BLANK'" th:text="'새 창으로 이동'" th:selected="'_BLANK' == ${banner.target}"></option>
+                        <option th:value="'_SELF'" th:text="'현재 창으로 이동'" th:selected="'_SELF' == ${banner.target}"></option>
                     </select>
                 </td>
             </tr>
@@ -95,7 +95,7 @@
                     정렬 순서
                 </th>
                 <td>
-                    <input th:value="${dto}" type="text" name="sortValue" required placeholder="정렬 순서 입력" />
+                    <input th:value="${banner.sortValue}" type="text" name="sortValue" required placeholder="정렬 순서 입력" />
                 </td>
             </tr>
             <tr>
@@ -104,7 +104,7 @@
                 </th>
                 <td>
                     <label>
-                        <input th:value="${true}" type="checkbox" name="usingYn" />
+                        <input th:checked="${banner.usingYn}" type="checkbox" name="usingYn" />
                     </label>
                 </td>
             </tr>
@@ -113,8 +113,8 @@
         </table>
 
         <div class="buttons">
-            <button th:if="${true}" type="submit"> 배너 수정 하기 </button>
-            <button th:if="${!true}" type="submit"> 배너 등록 하기 </button>
+            <button th:if="${editMode}" type="submit"> 배너 수정 하기 </button>
+            <button th:if="${!editMode}" type="submit"> 배너 등록 하기 </button>
             <a href="/admin/banner/list.do"> 목록 이동 </a>
         </div>
 
