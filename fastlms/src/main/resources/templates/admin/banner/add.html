@@ -53,7 +53,8 @@
             <tr>
                 <th>배너 파일</th>
                 <td>
-                    <input type="file" name="file" />
+                    <input th:if="${editMode}"  type="file" name="file" />
+                    <input th:if="${!editMode}" type="file" name="file" required />
                 </td>
             </tr>
 
@@ -71,8 +72,8 @@
                     오픈 방법
                 </th>
                 <td>
-                    <select th:name="target" th:value="${banner.target}">
-                        <option value="선택">오픈 방법 선택</option>
+                    <select th:name="target" th:value="${banner.target}" required>
+                        <option value="">오픈 방법 선택</option>
                         <option th:value="'_BLANK'" th:text="'새 창으로 이동'" th:selected="'_BLANK' == ${banner.target}"></option>
                         <option th:value="'_SELF'" th:text="'현재 창으로 이동'" th:selected="'_SELF' == ${banner.target}"></option>
                     </select>

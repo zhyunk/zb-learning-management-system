@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
-</head>
-<body>
-    <h1>메인 페이지 </h1>
-    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
@@ -23,8 +19,15 @@
             });
         });
     </script>
+</head>
+<body>
+    <h1>메인 페이지 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
     <div>
-        <div class="home__slider">
+        <div th:if="${totalCount == 0}">배너 없음</div>
+
+        <div class="home__slider" th:if="${totalCount > 0}">
             <div class="bxslider">
                 <div th:each="x : ${list}">
                     <a th:href="${x.url}" th:target="${x.target}">

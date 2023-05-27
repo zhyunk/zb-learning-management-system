@@ -49,6 +49,8 @@ public class FileUtil {
         return fileInfo.get(FileManage.URL_PATH);
     }
 
+
+
     public FileUtil save(MultipartFile file) {
         // "/Users/kyutaepark/Documents/sources/zerobase/fastlms/files";
         String baseLocalPath = "C:\\Users\\xh\\Documents\\zb-learning-management-system\\fastlms\\src\\main\\resources\\static\\files";

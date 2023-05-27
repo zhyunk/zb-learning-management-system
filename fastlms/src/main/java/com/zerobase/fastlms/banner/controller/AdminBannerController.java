@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.admin.controller;
+package com.zerobase.fastlms.banner.controller;
 
 import com.zerobase.fastlms.banner.dto.BannerDto;
 import com.zerobase.fastlms.banner.entity.Banner;

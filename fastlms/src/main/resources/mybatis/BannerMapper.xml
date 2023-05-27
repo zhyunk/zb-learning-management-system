@@ -9,7 +9,7 @@
         from banner
         where 1 = 1
           and using_yn = #{usingYn}
-        order by sort_value DESC
+        order by sort_value ASC
     </select>
 
 </mapper>
