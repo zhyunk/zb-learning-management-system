@@ -7,9 +7,31 @@
 <body>
     <h1>메인 페이지 </h1>
     <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".bxslider").bxSlider();
+        });
+    </script>
     <div>
-<!--        <img src="/files/2021/09/05/6e5170576b0c4c29879e5334dfccab2d.png"/>-->
+        <div class="home__slider">
+            <div class="bxslider">
+                <div>
+                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
+                </div>
+                <div>
+                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
+                </div>
+                <div>
+                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
+                </div>
+                <div>
+                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
