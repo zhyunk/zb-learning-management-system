@@ -1,25 +1,17 @@
 package com.zerobase.fastlms.banner.service;
 
-import com.zerobase.fastlms.admin.dto.CategoryDto;
-import com.zerobase.fastlms.admin.entity.Category;
-import com.zerobase.fastlms.admin.model.CategoryInput;
 import com.zerobase.fastlms.banner.dto.BannerDto;
 import com.zerobase.fastlms.banner.entity.Banner;
 import com.zerobase.fastlms.banner.mapper.BannerMapper;
 import com.zerobase.fastlms.banner.model.BannerInput;
 import com.zerobase.fastlms.banner.repository.BannerRepository;
-import com.zerobase.fastlms.course.dto.CourseDto;
-import com.zerobase.fastlms.course.model.CourseParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.SocketUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -52,6 +44,7 @@ public class BannerServiceImpl implements BannerService {
     
     @Override
     public boolean add(BannerInput parameter) {
+
         bannerRepository.save(Banner
                 .builder()
                 .altTitle(parameter.getAltTitle())
@@ -69,7 +62,7 @@ public class BannerServiceImpl implements BannerService {
     
     @Override
     public boolean update(BannerInput parameter) {
-        System.out.println("================================= " + parameter.toString());
+
         Optional<Banner> optionalBanner = bannerRepository.findById(parameter.getId());
         if (optionalBanner.isPresent()) {
             Banner banner = optionalBanner.get();
@@ -90,10 +83,22 @@ public class BannerServiceImpl implements BannerService {
     }
     
     @Override
-    public boolean del(long id) {
-        
-        bannerRepository.deleteById(id);
-        
+    public boolean del(String idList) {
+
+        if (idList != null && idList.length() > 0) {
+            String[] ids = idList.split(",");
+            for (String x : ids) {
+                long id = 0L;
+                try {
+                    id = Long.parseLong(x);
+                } catch (Exception e) {
+                }
+
+                if (id > 0) {
+                    bannerRepository.deleteById(id);
+                }
+            }
+        }
         return true;
     }
 

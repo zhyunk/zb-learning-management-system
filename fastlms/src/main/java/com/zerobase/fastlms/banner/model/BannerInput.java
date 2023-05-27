@@ -24,4 +24,7 @@ public class BannerInput {
     //ADD
     String filename;
     String urlFilename;
+
+    //삭제를 위한
+    String idList;
 }

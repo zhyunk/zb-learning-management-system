@@ -41,7 +41,9 @@ build/
 /target/
 /mvnw
 /mvnw.cmd
-/files/
+/files/*
+!/files/favicon.ico
+.DS_Store
 
 #### password
 secret.yml

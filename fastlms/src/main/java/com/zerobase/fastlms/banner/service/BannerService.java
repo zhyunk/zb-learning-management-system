@@ -25,7 +25,7 @@ public interface BannerService {
     /**
      * 배너 삭제
      */
-    boolean del(long id);
+    boolean del(String idList);
 
     /**
      * 배너 상세 정보
