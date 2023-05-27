@@ -1,7 +1,5 @@
 package com.zerobase.fastlms.banner.service;
 
-import com.zerobase.fastlms.admin.dto.CategoryDto;
-import com.zerobase.fastlms.admin.model.CategoryInput;
 import com.zerobase.fastlms.banner.dto.BannerDto;
 import com.zerobase.fastlms.banner.entity.Banner;
 import com.zerobase.fastlms.banner.model.BannerInput;

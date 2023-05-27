@@ -41,8 +41,8 @@ build/
 /target/
 /mvnw
 /mvnw.cmd
-/files/*
-!/files/favicon.ico
+/src/main/resources/static/files/*
+!/src/main/resources/static/files/favicon.ico
 .DS_Store
 
 #### password

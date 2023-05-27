@@ -24,6 +24,8 @@ public class Banner {
 
     String altTitle;
     String imgPath;
+    String imgSaveName;
+    String imgRealName;
     String url;
     String target;
     int sortValue;

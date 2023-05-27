@@ -52,6 +52,8 @@ public class BannerServiceImpl implements BannerService {
                 .usingYn(parameter.isUsingYn())
                 .sortValue(parameter.getSortValue())
                 .imgPath(parameter.getImgPath())
+                .imgRealName(parameter.getImgRealName())
+                .imgSaveName(parameter.getImgSaveName())
                 .target(parameter.getTarget())
                 .regDt(LocalDateTime.now())
                 .build()
@@ -73,8 +75,12 @@ public class BannerServiceImpl implements BannerService {
             banner.setSortValue(parameter.getSortValue());
             banner.setUsingYn(parameter.isUsingYn());
 
-            if (parameter.getImgPath() != null)
+            if (parameter.getImgPath() != null) {
                 banner.setImgPath(parameter.getImgPath());
+                banner.setImgRealName(parameter.getImgRealName());
+                banner.setImgSaveName(parameter.getImgSaveName());
+
+            }
 
             bannerRepository.save(banner);
         }

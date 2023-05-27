@@ -1,10 +1,9 @@
 package com.zerobase.fastlms.util;
 
+import com.zerobase.fastlms.banner.type.FileManage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,48 +11,59 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
 @NoArgsConstructor
 public class FileUtil {
-    private String[] arrFilename;
+    private Map<FileManage, String> fileInfo = new HashMap<>();
 
     /**
-     * @return "C:\Users\fastlms\files/2023/05/27/b0882ec9bca5468ea5b6963c538858ea.jfif"
+     * @return "b0882ec9bca5468ea5b6963c538858ea.jfif"
      */
     public String getSaveFileName() {
-        return arrFilename[0];
+        return fileInfo.get(FileManage.SAVE_NAME);
     }
 
     /**
-     * @return "/files/2023/05/27/b0882ec9bca5468ea5b6963c538858ea.jfif"
+     * @return "image01.jfif"
      */
-    public String getUrlFileName() {
-        return arrFilename[1];
+    public String getRealFileName() {
+        return fileInfo.get(FileManage.REAL_NAME);
+    }
+
+    /**
+     * @return "C:\Users\fastlms\files/2023/05/27/"
+     */
+    public String getSaveFilePath() {
+        return fileInfo.get(FileManage.ABSOLUTE_PATH);
+    }
+
+    /**
+     * @return "/files/2023/05/27/"
+     */
+    public String getUrlFilePath() {
+        return fileInfo.get(FileManage.URL_PATH);
     }
 
     public FileUtil save(MultipartFile file) {
         // "/Users/kyutaepark/Documents/sources/zerobase/fastlms/files";
-        String baseLocalPath = "C:\\Users\\xh\\Documents\\zb-learning-management-system\\fastlms\\files";
+        String baseLocalPath = "C:\\Users\\xh\\Documents\\zb-learning-management-system\\fastlms\\src\\main\\resources\\static\\files";
         String baseUrlPath = "/files";
-
-        String saveFilename = "";
-        String urlFilename = "";
 
         if (file != null) {
             String originalFilename = file.getOriginalFilename();
 
-            arrFilename = FileUtil.getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
+            String[] arrFilename = getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
 
-            saveFilename = arrFilename[0];
-            urlFilename = arrFilename[1];
-            log.info("======================= " , Arrays.toString(arrFilename));
+            fileInfo.put(FileManage.ABSOLUTE_PATH_AND_SAVE_NAME, arrFilename[0]);
+            fileInfo.put(FileManage.URL_PATH_AND_SAVE_NAME, arrFilename[1]);
 
             try {
-                File newFile = new File(saveFilename);
+                File newFile = new File(arrFilename[0]);
                 FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(newFile));
             } catch (IOException e) {
                 log.info("############################ - 1");
@@ -63,7 +73,7 @@ public class FileUtil {
         return this;
     }
 
-    public static String[] getNewSaveFile(String baseLocalPath, String baseUrlPath, String originalFilename) {
+    public String[] getNewSaveFile(String baseLocalPath, String baseUrlPath, String originalFilename) {
 
         LocalDate now = LocalDate.now();
 
@@ -73,6 +83,9 @@ public class FileUtil {
                 String.format("%s/%d/%02d/%02d/", baseLocalPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth())};
 
         String urlDir = String.format("%s/%d/%02d/%02d/", baseUrlPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+
+        fileInfo.put(FileManage.ABSOLUTE_PATH, dirs[2]);
+        fileInfo.put(FileManage.URL_PATH, urlDir);
 
         for(String dir : dirs) {
             File file = new File(dir);
@@ -87,6 +100,8 @@ public class FileUtil {
             if (dotPos > -1) {
                 fileExtension = originalFilename.substring(dotPos + 1);
             }
+
+            fileInfo.put(FileManage.REAL_NAME, originalFilename);
         }
 
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -96,6 +111,8 @@ public class FileUtil {
             newFilename += "." + fileExtension;
             newUrlFilename += "." + fileExtension;
         }
+
+        fileInfo.put(FileManage.SAVE_NAME, uuid + "." + fileExtension);
 
         return new String[]{newFilename, newUrlFilename};
     }

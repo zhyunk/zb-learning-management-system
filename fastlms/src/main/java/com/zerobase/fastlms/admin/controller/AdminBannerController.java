@@ -1,6 +1,5 @@
 package com.zerobase.fastlms.admin.controller;
 
-import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.banner.dto.BannerDto;
 import com.zerobase.fastlms.banner.entity.Banner;
 import com.zerobase.fastlms.banner.model.BannerInput;
@@ -27,9 +26,10 @@ public class AdminBannerController extends BaseController {
     private final BannerService bannerService;
 
     @GetMapping("/admin/banner/list.do")
-    public String list(Model model, MemberParam parameter) {
+    public String list(Model model) {
 
         List<BannerDto> list = bannerService.list();
+        model.addAttribute("totalCount", list.size());
         model.addAttribute("list", list);
 
         return "admin/banner/list";
@@ -57,9 +57,10 @@ public class AdminBannerController extends BaseController {
         if (file != null) {
             String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
             if (extension != null) {
-                FileUtil files = new FileUtil();
-                String imgPath = files.save(file).getUrlFileName();
-                parameter.setImgPath(imgPath);
+                FileUtil files = new FileUtil().save(file);
+                parameter.setImgPath(files.getUrlFilePath());
+                parameter.setImgRealName(files.getRealFileName());
+                parameter.setImgSaveName(files.getSaveFileName());
             }
         }
 
