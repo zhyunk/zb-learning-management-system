@@ -57,7 +57,7 @@
                     배너명
                 </th>
                 <td>
-                    <input th:value="${dto}" type="text" name="subject" required placeholder="배너명 입력" />
+                    <input th:value="${dto}" type="text" name="altTitle" required placeholder="배너명 입력" />
                 </td>
             </tr>
 
@@ -73,7 +73,7 @@
                     링크 주소
                 </th>
                 <td>
-                    <input th:value="${dto}" type="text" name="link" required placeholder="링크 주소 입력" />
+                    <input th:value="${dto}" type="text" name="url" required placeholder="링크 주소 입력" />
                 </td>
             </tr>
 
@@ -82,10 +82,10 @@
                     오픈 방법
                 </th>
                 <td>
-                    <select>
-                        <option>오픈 방법 선택</option>
-                        <option>새 창으로 이동</option>
-                        <option>현재 창으로 이동</option>
+                    <select th:name="target">
+                        <option value="선택">오픈 방법 선택</option>
+                        <option th:value="'_BLANK'" th:text="'새 창으로 이동'"></option>
+                        <option th:value="'_SELF'" th:text="'현재 창으로 이동'"></option>
                     </select>
                 </td>
             </tr>
@@ -95,7 +95,7 @@
                     정렬 순서
                 </th>
                 <td>
-                    <input th:value="${dto}" type="text" name="price" required placeholder="정렬 순서 입력" />
+                    <input th:value="${dto}" type="text" name="sortValue" required placeholder="정렬 순서 입력" />
                 </td>
             </tr>
             <tr>
@@ -104,7 +104,7 @@
                 </th>
                 <td>
                     <label>
-                        <input th:value="${dto}" type="checkbox" name="salePrice" required  />
+                        <input th:value="${true}" type="checkbox" name="usingYn" />
                     </label>
                 </td>
             </tr>

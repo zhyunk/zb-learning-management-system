@@ -138,11 +138,11 @@
             <td th:text="${x.seq}">1</td>
             <td>
                 <p>
-                    <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.subject}">강좌명</a>
+                    <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.altTitle}">배너명</a>
                 </p>
             </td>
             <td>
-                <img src="" alt="test">
+                <img th:src="${x.imgPath}" th:alt="${x.altTitle}">
             </td>
             <td>
                 <p th:text="${x.regDt}">2021.01.01</p>
