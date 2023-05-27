@@ -8,11 +8,15 @@ import com.zerobase.fastlms.banner.entity.Banner;
 import com.zerobase.fastlms.banner.mapper.BannerMapper;
 import com.zerobase.fastlms.banner.model.BannerInput;
 import com.zerobase.fastlms.banner.repository.BannerRepository;
+import com.zerobase.fastlms.course.dto.CourseDto;
+import com.zerobase.fastlms.course.model.CourseParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +33,19 @@ public class BannerServiceImpl implements BannerService {
     
     @Override
     public List<BannerDto> list() {
+
+        long totalCount = bannerRepository.count();
         List<Banner> banners = bannerRepository.findAll(getSortBySortValueDesc());
-        return BannerDto.of(banners);
+        List<BannerDto> list = new ArrayList<>();
+        int seq = 0;
+        for (Banner banner : banners) {
+            BannerDto dto = BannerDto.of(banner);
+            dto.setTotalCount(totalCount);
+            dto.setSeq(totalCount - seq++);
+            list.add(dto);
+        }
+
+        return list;
     }
     
     @Override
