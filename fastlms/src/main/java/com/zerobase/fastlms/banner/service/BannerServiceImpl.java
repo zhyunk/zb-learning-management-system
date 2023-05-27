@@ -115,8 +115,8 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public List<BannerDto> frontList(BannerDto parameter) {
-
-        return bannerMapper.select(parameter);
+    public List<BannerDto> frontList() {
+        boolean usingYn = true;
+        return bannerMapper.selectList(usingYn);
     }
 }

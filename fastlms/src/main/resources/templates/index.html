@@ -12,23 +12,24 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script>
         $(document).ready(function(){
-            $(".bxslider").bxSlider();
+            $('.bxslider').bxSlider({
+                auto: true,
+                speed: 500,
+                pause: 4000,
+                mode:'fade',
+                autoControls: true,
+                pager:true,
+                touchEnabled : false,
+            });
         });
     </script>
     <div>
         <div class="home__slider">
             <div class="bxslider">
-                <div>
-                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
-                </div>
-                <div>
-                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
-                </div>
-                <div>
-                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
-                </div>
-                <div>
-                    <a th:src="'#'" th:target="'_blank'"><img th:src="'#'" th:alt="'test'"/></a>
+                <div th:each="x : ${list}">
+                    <a th:href="${x.url}" th:target="${x.target}">
+                        <img th:src="${x.imgPath + x.imgSaveName}" th:alt="${x.altTitle}"/>
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zerobase.fastlms.banner.mapper.BannerMapper">
+
+    <select id="selectList" resultType="com.zerobase.fastlms.banner.dto.BannerDto">
+        select id, alt_title, img_path, img_save_name, url, target, sort_value, using_yn, reg_dt
+        from banner
+        where 1 = 1
+          and using_yn = #{usingYn}
+        order by sort_value DESC
+    </select>
+
+</mapper>
